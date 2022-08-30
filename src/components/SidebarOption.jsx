@@ -29,7 +29,7 @@ export default function SidebarOption({ Icon, title, addChannelOption, id }) {
     <SidebarOptionContainer
       onClick={addChannelOption ? addChannel : selectChannel}
     >
-      {Icon && <Icon style={{ padding: 10 }} />}
+      {Icon && <Icon />}
       {Icon ? (
         <h3>{title}</h3>
       ) : (
@@ -48,7 +48,7 @@ const SidebarOptionContainer = styled.div`
   align-items: center;
   padding-left: 2px;
   cursor: pointer;
-  margin: 10px;
+  margin: 20px;
 
   :hover {
     opacity: 0.9;
