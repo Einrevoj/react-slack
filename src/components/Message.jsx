@@ -9,6 +9,7 @@ export default function Message({ userImage, user, timestamp, message }) {
         <h4>
           {user} <span>{new Date(timestamp?.toDate()).toUTCString()}</span>
         </h4>
+        <p>{message}</p>
       </MessageInfo>
     </MessageContainer>
   );
