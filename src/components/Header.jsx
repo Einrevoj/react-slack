@@ -6,14 +6,19 @@ import Avatar from "@mui/material/Avatar";
 import HelpIcon from "@mui/icons-material/Help";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import SearchIcon from "@mui/icons-material/Search";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../Firebase";
 
 export default function Header() {
+  const [user] = useAuthState(auth);
+
   return (
     <HeaderContainer>
       <HeaderLeft>
         <HeaderAvatar
-          src="https://cdn.vox-cdn.com/thumbor/SZwKRTpONbDDFLCHvBleq8OspmY=/0x0:1920x1080/1200x800/filters:focal(760x348:1066x654)/cdn.vox-cdn.com/uploads/chorus_image/image/65224808/chrome_2019_09_11_12_39_56.0.jpg"
-          alt="ffvii"
+          src={user?.photoURL}
+          alt={user?.displayName}
+          onClick={() => auth.signOut()}
         />
         <AccessTimeIcon />
       </HeaderLeft>

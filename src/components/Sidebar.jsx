@@ -16,19 +16,21 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AddIcon from "@mui/icons-material/Add";
-import { db } from "../Firebase";
+import { auth, db } from "../Firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Sidebar() {
+  const [user] = useAuthState(auth);
   const [channels] = useCollection(db.collection("rooms"));
 
   return (
     <SidebarContainer>
       <SidebarHeader>
         <SidebarInfo>
-          <h2>Jovernie Cano</h2>
+          <h2>{user.displayName}</h2>
           <h3>
             <FiberManualRecordIcon />
-            testuser@kodego.com
+            {user.email}
           </h3>
         </SidebarInfo>
         <CreateIcon />

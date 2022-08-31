@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { db } from "../Firebase";
+import { auth, db } from "../Firebase";
 import firebase from "firebase/compat/app";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-export default function ChatInput({ channelName, channelId }) {
+export default function ChatInput({ channelName, channelId, chatRef }) {
   const [input, setInput] = useState("");
+  const [user] = useAuthState(auth);
 
   const sendMessage = (e) => {
     e.preventDefault();
     db.collection("rooms").doc(channelId).collection("messages").add({
       message: input,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      user: "Jovernie Cano",
-      userImage:
-        "https://cdn.vox-cdn.com/thumbor/SZwKRTpONbDDFLCHvBleq8OspmY=/0x0:1920x1080/1200x800/filters:focal(760x348:1066x654)/cdn.vox-cdn.com/uploads/chorus_image/image/65224808/chrome_2019_09_11_12_39_56.0.jpg",
+      user: user.displayName,
+      userImage: user.photoURL,
     });
+    chatRef.current.scrollIntoView({ behavior: "smooth" });
 
     setInput("");
   };
